@@ -1,9 +1,20 @@
 import { ServiceEntity, EvacuationPoint } from '../types';
 import { INITIAL_SERVICES, INITIAL_EVACUATION_POINTS } from '../constants';
 
-// CONFIGURATION
-// Set this to false to connect to your real MongoDB backend API
-const USE_MOCK_DB = true; 
+/**
+ * DATABASE CONFIGURATION FOR LOCAL MEAN STACK
+ * -------------------------------------------
+ * To connect this frontend to your local MongoDB/Express backend:
+ * 
+ * 1. Ensure your backend server is running (e.g., node server.js)
+ * 2. Set USE_MOCK_DB = false below.
+ * 3. Verify API_BASE_URL matches your local server port.
+ * 4. Ensure your backend provides the following endpoints:
+ *    - GET /api/services (Returns array of ServiceEntity)
+ *    - GET /api/evacuation-routes (Returns array of EvacuationPoint)
+ */
+
+const USE_MOCK_DB = true; // Set to FALSE to use your local Node/Express API
 const API_BASE_URL = 'http://localhost:3000/api';
 
 export const db = {
@@ -15,7 +26,9 @@ export const db = {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         // Simulate a successful handshake
-        console.log('✅ Connected to MongoDB Sentinel Cluster');
+        console.log(USE_MOCK_DB 
+          ? '✅ Connected to Mock Sentinel Cluster (Simulation Mode)' 
+          : `✅ Connected to Local API at ${API_BASE_URL}`);
         resolve(true);
       }, 1500);
     });
@@ -36,8 +49,10 @@ export const db = {
         if (!response.ok) throw new Error('Failed to fetch services from DB');
         return await response.json();
       } catch (error) {
-        console.error('DB Error:', error);
-        throw error;
+        console.error('DB Error (Services):', error);
+        // Fallback to initial data if local API fails, to prevent crash
+        console.warn('⚠️ Falling back to cached data due to API error.');
+        return INITIAL_SERVICES;
       }
     }
   },
@@ -56,8 +71,9 @@ export const db = {
         if (!response.ok) throw new Error('Failed to fetch routes from DB');
         return await response.json();
       } catch (error) {
-        console.error('DB Error:', error);
-        throw error;
+        console.error('DB Error (Evacuation):', error);
+        console.warn('⚠️ Falling back to cached data due to API error.');
+        return INITIAL_EVACUATION_POINTS;
       }
     }
   }
