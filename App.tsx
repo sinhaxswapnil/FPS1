@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Sidebar } from './components/Sidebar';
 import { Dashboard } from './components/Dashboard';
 import { Directory } from './components/Directory';
-import { AiAssistant } from './components/AiAssistant';
 import { EvacuationRoutes } from './components/EvacuationRoutes';
 import { ServiceEntity, EvacuationPoint } from './types';
 import { db } from './services/database';
@@ -66,8 +65,6 @@ const App: React.FC = () => {
         return <Directory services={services} />;
       case 'evacuation':
         return <EvacuationRoutes points={evacuationPoints} />;
-      case 'assistant':
-        return <AiAssistant />;
       default:
         return <Dashboard services={services} />;
     }

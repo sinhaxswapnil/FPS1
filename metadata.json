@@ -1,6 +1,6 @@
 {
   "name": "Sentinel Fire & Safety Grid",
-  "description": "A comprehensive centralized database and management system for emergency services including Fire, Police, Health, and Utility infrastructure. Features AI-assisted emergency response guidance.",
+  "description": "A comprehensive centralized database and management system for emergency services including Fire, Police, Health, and Utility infrastructure.",
   "requestFramePermissions": [
     "geolocation"
   ]

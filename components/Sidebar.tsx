@@ -1,5 +1,5 @@
 import React from 'react';
-import { LayoutDashboard, Database, Siren, ShieldAlert, Activity, Map, Server, RefreshCw } from 'lucide-react';
+import { LayoutDashboard, Database, ShieldAlert, Activity, Map, Server, RefreshCw } from 'lucide-react';
 
 interface SidebarProps {
   activeTab: string;
@@ -12,7 +12,6 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab, dbSta
     { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard },
     { id: 'directory', label: 'Service Database', icon: Database },
     { id: 'evacuation', label: 'Evacuation Routes', icon: Map },
-    { id: 'assistant', label: 'AI Assistant', icon: Siren },
   ];
 
   return (
